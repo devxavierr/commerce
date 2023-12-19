@@ -3,6 +3,7 @@ package com.xavier.dscommerce.services;
 import com.xavier.dscommerce.Repositories.ProductRepository;
 import com.xavier.dscommerce.dto.ProductDTO;
 import com.xavier.dscommerce.entities.Product;
+import com.xavier.dscommerce.services.exceptions.ResouceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,8 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductDTO findById(Long id){
-        Product product = productRepository.findById(id).get();
+        Product product = productRepository.findById(id).orElseThrow(
+                ()-> new ResouceNotFoundException("Recurso não encontrado"));
         return new ProductDTO(product);
     }
 
