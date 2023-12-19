@@ -8,8 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "/products")
 public class ProductController {
@@ -35,6 +33,12 @@ public class ProductController {
     public ProductDTO update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
         ProductDTO dto = productService.update(id, productDTO);
         return dto;
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+       productService.delete(id);
     }
 
 }
