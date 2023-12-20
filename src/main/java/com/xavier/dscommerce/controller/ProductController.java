@@ -2,6 +2,7 @@ package com.xavier.dscommerce.controller;
 
 import com.xavier.dscommerce.dto.ProductDTO;
 import com.xavier.dscommerce.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +26,12 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDTO insert(@RequestBody ProductDTO productDTO) {
+    public ProductDTO insert(@Valid @RequestBody ProductDTO productDTO) {
         return productService.insert(productDTO);
     }
 
     @PutMapping(value = "/{id}")
-    public ProductDTO update(@PathVariable Long id, @RequestBody ProductDTO productDTO) {
+    public ProductDTO update(@PathVariable Long id, @Valid @RequestBody ProductDTO productDTO) {
         ProductDTO dto = productService.update(id, productDTO);
         return dto;
     }
