@@ -49,16 +49,7 @@ public class ProductService {
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id){
-        if (! productRepository.existsById(id)){
-            throw new ResouceNotFoundException("Recurso não encontrado");
-        }
-        try {
-            productRepository.deleteById(id);
-        }
-        catch (DataIntegrityViolationException e){
-            throw new DataBaseException("Falha de integridade referencial");
-        }
-
+        productRepository.deleteById(id);
     }
     private void copyDtoToEntity(ProductDTO productDTO, Product entity) {
         entity.setName(productDTO.getName());
