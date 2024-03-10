@@ -24,7 +24,7 @@ public class ProductDTO {
 
     public ProductDTO(Long id, String name, String description, Double price, String imgUrl) {
         this.id = id;
-        this.name = name;
+        name = name;
         this.description = description;
         this.price = price;
         this.imgUrl = imgUrl;
@@ -32,7 +32,7 @@ public class ProductDTO {
 
     public ProductDTO(Product product) {
         id = product.getId();
-       name = product.getName();
+        name = product.getName();
         description = product.getDescription();
         price = product.getPrice();
         imgUrl = product.getImgUrl();
