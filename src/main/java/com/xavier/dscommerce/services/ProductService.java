@@ -5,6 +5,7 @@ import com.xavier.dscommerce.dto.ProductDTO;
 import com.xavier.dscommerce.entities.Product;
 import com.xavier.dscommerce.services.exceptions.DataBaseException;
 import com.xavier.dscommerce.services.exceptions.ResouceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -41,15 +42,29 @@ public class ProductService {
 
     @Transactional()
     public ProductDTO update(Long id, ProductDTO productDTO){
-        Product entity = productRepository.getReferenceById(id);
-        copyDtoToEntity(productDTO, entity);
-        entity = productRepository.save(entity);
-        return new ProductDTO(entity);
+        try {
+            Product entity = productRepository.getReferenceById(id);
+            copyDtoToEntity(productDTO, entity);
+            entity = productRepository.save(entity);
+            return new ProductDTO(entity);
+        }
+        catch (EntityNotFoundException e){
+            throw new ResouceNotFoundException("Recurso não encontrado");
+        }
+
     }
 
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id){
-        productRepository.deleteById(id);
+        if (!productRepository.existsById(id)){
+            throw new ResouceNotFoundException("Recurso não encontrado");
+        }
+        try{
+            productRepository.deleteById(id);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DataBaseException("Falha de integridade referencial");
+        }
     }
     private void copyDtoToEntity(ProductDTO productDTO, Product entity) {
         entity.setName(productDTO.getName());
