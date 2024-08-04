@@ -31,6 +31,8 @@ public class User implements UserDetails {
     @Column(unique = true)
     private String email;
     private String password;
+    private LocalDate birthDate;
+    private String phone;
 
     @ManyToMany
     @JoinTable(name = "tb_user_role",
@@ -45,6 +47,8 @@ public class User implements UserDetails {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.phone = phone;
+        this.birthDate = birthDate;
         this.password = password;
     }
 
@@ -78,6 +82,22 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     public void addRole(Role role) {
@@ -137,4 +157,9 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
 }
