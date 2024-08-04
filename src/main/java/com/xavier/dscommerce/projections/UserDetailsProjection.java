@@ -1,4 +1,4 @@
-package com.xavier.dscommerce.projection;
+package com.xavier.dscommerce.projections;
 
 public interface UserDetailsProjection {
 

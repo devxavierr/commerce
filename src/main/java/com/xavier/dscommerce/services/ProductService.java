@@ -1,6 +1,6 @@
 package com.xavier.dscommerce.services;
 
-import com.xavier.dscommerce.Repositories.ProductRepository;
+import com.xavier.dscommerce.repositories.ProductRepository;
 import com.xavier.dscommerce.dto.ProductDTO;
 import com.xavier.dscommerce.entities.Product;
 import com.xavier.dscommerce.services.exceptions.DataBaseException;
