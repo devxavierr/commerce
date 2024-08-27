@@ -1,5 +1,6 @@
 package com.xavier.dscommerce.services;
 
+import com.xavier.dscommerce.dto.ProductMinDTO;
 import com.xavier.dscommerce.repositories.ProductRepository;
 import com.xavier.dscommerce.dto.ProductDTO;
 import com.xavier.dscommerce.entities.Product;
@@ -28,9 +29,9 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(String name, Pageable pageable){
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable){
         Page<Product> product = productRepository.searchByName(name, pageable);
-        return product.map(x-> new ProductDTO(x));
+        return product.map(ProductMinDTO::new);
     }
     @Transactional()
     public ProductDTO insert(ProductDTO productDTO){
